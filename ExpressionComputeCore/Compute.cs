@@ -1,20 +1,22 @@
-﻿namespace ExpressionComputeCore
+﻿using NaturplayMath.Algebra.Scalar.NumberString;
+
+namespace ExpressionComputeCore
 {
     public class Compute
     {
-        public static string compute(string input)
+        public static NumStr compute(string input)
         {
             /*表达式的标准化与拆分*/
             Undefine_variable[] vary = new Undefine_variable[10];   //结构数组用于存放变量
             Standard(input, vary, out int undefine, out string[] items, out int sum);
-            for (int i = 0; i < sum; i++)
-                Console.WriteLine(items[i]);
+            //for (int i = 0; i < sum; i++)
+            //    Console.WriteLine(items[i]);
             /*表达式的计算*/
-            double result = Caculate(items, sum);
+            var result = Caculate(items, sum);
             /*输出结果*/
-            for (int i = 0; i < undefine; i++)   //输出各变量及其值
-                Console.WriteLine(vary[i].variable + ":" + vary[i].value);
-            return result.ToString();
+            //for (int i = 0; i < undefine; i++)   //输出各变量及其值
+            //    Console.WriteLine(vary[i].variable + ":" + vary[i].value);
+            return result;
         }
 
         /*表达式的标准化与拆分*/
@@ -175,13 +177,13 @@
             sum++;
         }
         /*表达式的计算*/
-        static double Caculate(string[] items, int sum)
+        static NumStr Caculate(string[] items, int sum)
         {
             /*存放数据栈*/
-            Stack<double> Sd = new Stack<double>();
+            Stack<NumStr> Sd = new Stack<NumStr>();
             /*存放运算符栈*/
             Stack<string> Ss = new Stack<string>();
-            double result = 0;
+            NumStr result = 0;
             char temp;
             string alpha;
             /*自定义字符串结束符*/
@@ -209,7 +211,7 @@
                             else
                                 break;
                         }
-                        Sd.Push(Convert.ToDouble(alpha));
+                        Sd.Push(new NumStr(alpha));
                     }
                     else if (temp >= 'a' && temp <= 'z')   //将运算函数压入栈中
                     {
@@ -234,30 +236,34 @@
                             if (tempS.Equals("+"))
                                 Sd.Push(Sd.Pop() + Sd.Pop());
                             else if (tempS.Equals("-"))
-                                Sd.Push(-Sd.Pop() + Sd.Pop());
+                            {
+                                var templ = Sd.Pop();
+                                templ -= 2 * templ;
+                                Sd.Push(templ + Sd.Pop());
+                            }
                             else if (tempS.Equals("*"))
                                 Sd.Push(Sd.Pop() * Sd.Pop());
                             else if (tempS.Equals("/"))
                                 Sd.Push(1 / Sd.Pop() * Sd.Pop());
                             else if (tempS.Equals("sin"))
-                                Sd.Push(Math.Sin(Sd.Pop()));
+                                Sd.Push(Math.Sin(Convert.ToDouble(Sd.Pop().ToString())));
                             else if (tempS.Equals("cos"))
-                                Sd.Push(Math.Cos(Sd.Pop()));
+                                Sd.Push(Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                             else if (tempS.Equals("tan"))
-                                Sd.Push(Math.Tan(Sd.Pop()));
+                                Sd.Push(Math.Tan(Convert.ToDouble(Sd.Pop().ToString())));
                             else if (tempS.Equals("sec"))
-                                Sd.Push(1 / Math.Cos(Sd.Pop()));
+                                Sd.Push(1 / Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                             else if (tempS.Equals("^"))
                             {
-                                double top = Sd.Pop();
-                                Sd.Push(Math.Pow(Sd.Pop(), top));
+                                double top = Convert.ToDouble(Sd.Pop().ToString());
+                                Sd.Push(Math.Pow(Convert.ToDouble(Sd.Pop().ToString()), top));
                             }
                             else if (tempS.Equals("log"))
-                                Sd.Push(1 / Math.Log10(Sd.Pop()) * Math.Log10(Sd.Pop()));
+                                Sd.Push(1 / Math.Log10(Convert.ToDouble(Sd.Pop().ToString())) * Math.Log10(Convert.ToDouble(Sd.Pop().ToString())));
                             else if (tempS.Equals("abs"))
-                                Sd.Push(Math.Abs(Sd.Pop()));
+                                Sd.Push(Math.Abs(Convert.ToDouble(Sd.Pop().ToString())));
                             else if (tempS.Equals("floor"))
-                                Sd.Push(Math.Floor(Sd.Pop())); ;
+                                Sd.Push(Math.Floor(Convert.ToDouble(Sd.Pop().ToString()))); ;
                         }
                         Ss.Pop();   //将字符'('出栈
                     }
@@ -275,30 +281,34 @@
                                     if (tempS.Equals("+"))
                                         Sd.Push(Sd.Pop() + Sd.Pop());
                                     else if (tempS.Equals("-"))
-                                        Sd.Push(-Sd.Pop() + Sd.Pop());
+                                    {
+                                        var templ = Sd.Pop();
+                                        templ -= 2 * templ;
+                                        Sd.Push(templ + Sd.Pop());
+                                    }
                                     else if (tempS.Equals("*"))
                                         Sd.Push(Sd.Pop() * Sd.Pop());
                                     else if (tempS.Equals("/"))
                                         Sd.Push(1 / Sd.Pop() * Sd.Pop());
                                     else if (tempS.Equals("sin"))
-                                        Sd.Push(Math.Sin(Sd.Pop()));
+                                        Sd.Push(Math.Sin(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("cos"))
-                                        Sd.Push(Math.Cos(Sd.Pop()));
+                                        Sd.Push(Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("tan"))
-                                        Sd.Push(Math.Tan(Sd.Pop()));
+                                        Sd.Push(Math.Tan(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("sec"))
-                                        Sd.Push(1 / Math.Cos(Sd.Pop()));
+                                        Sd.Push(1 / Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("^"))
                                     {
-                                        double top = Sd.Pop();
-                                        Sd.Push(Math.Pow(Sd.Pop(), top));
+                                        double top = Convert.ToDouble(Sd.Pop().ToString());
+                                        Sd.Push(Math.Pow(Convert.ToDouble(Sd.Pop().ToString()), top));
                                     }
                                     else if (tempS.Equals("log"))
-                                        Sd.Push(1 / Math.Log10(Sd.Pop()) * Math.Log10(Sd.Pop()));
+                                        Sd.Push(1 / Math.Log10(Convert.ToDouble(Sd.Pop().ToString())) * Math.Log10(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("abs"))
-                                        Sd.Push(Math.Abs(Sd.Pop()));
+                                        Sd.Push(Math.Abs(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("floor"))
-                                        Sd.Push(Math.Floor(Sd.Pop()));
+                                        Sd.Push(Math.Floor(Convert.ToDouble(Sd.Pop().ToString())));
                                 }
                                 Ss.Push(alpha);
                                 break;
@@ -314,24 +324,24 @@
                                     else if (tempS.Equals("/"))
                                         Sd.Push(1 / Sd.Pop() * Sd.Pop());
                                     else if (tempS.Equals("sin"))
-                                        Sd.Push(Math.Sin(Sd.Pop()));
+                                        Sd.Push(Math.Sin(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("cos"))
-                                        Sd.Push(Math.Cos(Sd.Pop()));
+                                        Sd.Push(Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("tan"))
-                                        Sd.Push(Math.Tan(Sd.Pop()));
+                                        Sd.Push(Math.Tan(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("sec"))
-                                        Sd.Push(1 / Math.Cos(Sd.Pop()));
+                                        Sd.Push(1 / Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("^"))
                                     {
-                                        double top = Sd.Pop();
-                                        Sd.Push(Math.Pow(Sd.Pop(), top));
+                                        double top = Convert.ToDouble(Sd.Pop().ToString());
+                                        Sd.Push(Math.Pow(Convert.ToDouble(Sd.Pop().ToString()), top));
                                     }
                                     else if (tempS.Equals("log"))
-                                        Sd.Push(1 / Math.Log10(Sd.Pop()) * Math.Log10(Sd.Pop()));
+                                        Sd.Push(1 / Math.Log10(Convert.ToDouble(Sd.Pop().ToString())) * Math.Log10(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("abs"))
-                                        Sd.Push(Math.Abs(Sd.Pop()));
+                                        Sd.Push(Math.Abs(Convert.ToDouble(Sd.Pop().ToString())));
                                     else if (tempS.Equals("floor"))
-                                        Sd.Push(Math.Floor(Sd.Pop()));
+                                        Sd.Push(Math.Floor(Convert.ToDouble(Sd.Pop().ToString())));
                                     else
                                     {
                                         Ss.Push(tempS);
@@ -358,30 +368,34 @@
                     if (alpha.Equals("+"))
                         Sd.Push(Sd.Pop() + Sd.Pop());
                     else if (alpha.Equals("-"))
-                        Sd.Push(-Sd.Pop() + Sd.Pop());
+                    {
+                        var templ = Sd.Pop();
+                        templ -= 2 * templ;
+                        Sd.Push(templ + Sd.Pop());
+                    }
                     else if (alpha.Equals("*"))
                         Sd.Push(Sd.Pop() * Sd.Pop());
                     else if (alpha.Equals("/"))
                         Sd.Push(1 / Sd.Pop() * Sd.Pop());
                     else if (alpha.Equals("sin"))
-                        Sd.Push(Math.Sin(Sd.Pop()));
+                        Sd.Push(Math.Sin(Convert.ToDouble(Sd.Pop().ToString())));
                     else if (alpha.Equals("cos"))
-                        Sd.Push(Math.Cos(Sd.Pop()));
+                        Sd.Push(Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                     else if (alpha.Equals("tan"))
-                        Sd.Push(Math.Tan(Sd.Pop()));
+                        Sd.Push(Math.Tan(Convert.ToDouble(Sd.Pop().ToString())));
                     else if (alpha.Equals("sec"))
-                        Sd.Push(1 / Math.Cos(Sd.Pop()));
+                        Sd.Push(1 / Math.Cos(Convert.ToDouble(Sd.Pop().ToString())));
                     else if (alpha.Equals("^"))
                     {
-                        double top = Sd.Pop();
-                        Sd.Push(Math.Pow(Sd.Pop(), top));
+                        double top = Convert.ToDouble(Sd.Pop().ToString());
+                        Sd.Push(Math.Pow(Convert.ToDouble(Sd.Pop().ToString()), top));
                     }
                     else if (alpha.Equals("log"))
-                        Sd.Push(1 / Math.Log10(Sd.Pop()) * Math.Log10(Sd.Pop()));
+                        Sd.Push(1 / Math.Log10(Convert.ToDouble(Sd.Pop().ToString())) * Math.Log10(Convert.ToDouble(Sd.Pop().ToString())));
                     else if (alpha.Equals("abs"))
-                        Sd.Push(Math.Abs(Sd.Pop()));
+                        Sd.Push(Math.Abs(Convert.ToDouble(Sd.Pop().ToString())));
                     else if (alpha.Equals("floor"))
-                        Sd.Push(Math.Floor(Sd.Pop()));
+                        Sd.Push(Math.Floor(Convert.ToDouble(Sd.Pop().ToString())));
                 }
                 result += Sd.Peek();   //item最终计算的结果即为数字栈的顶端元素
             }

@@ -7,3 +7,8 @@
 /MATHUB/obj
 /MATHUB/.vs/MATHUB
 /MATHUB/.vscode
+/ExpressionComputeCore/bin/Debug/net6.0
+/ExpressionComputeCoreTests
+/NaturplayMathTest
+/NaturplayMath/bin/Debug/netcoreapp3.0
+/NaturplayMath/obj

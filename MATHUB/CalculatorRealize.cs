@@ -91,17 +91,11 @@ namespace MATHUB
             ComputeProcess.Kill();
         }
     }
-    public class BasicCalculatorRealize : CalculatorRealize
+    public class NaturplayMathCalculatorRealize : CalculatorRealize
     {
-        private ExpressionContext calculator;
-        public BasicCalculatorRealize()
-        {
-            calculator = new ExpressionContext();
-            calculator.Imports.AddType(typeof(System.Math));
-        }
         public override string Compute(string exp)
         {
-            return calculator.CompileDynamic(exp).Evaluate() as string;
+            return ExpressionComputeCore.Compute.compute(exp).ToString();
         }
     }
 }

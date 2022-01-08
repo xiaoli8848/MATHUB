@@ -43,6 +43,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExpressionComputeCore\ExpressionComputeCore.csproj" />
+    <ProjectReference Include="..\NaturplayMath\NaturplayMath.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="CalculatorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
