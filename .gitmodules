@@ -1,0 +1,3 @@
+[submodule "NaturplayMath"]
+	path = NaturplayMath
+	url = https://github.com/zamhown/NaturplayMath

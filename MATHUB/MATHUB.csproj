@@ -44,7 +44,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExpressionComputeCore\ExpressionComputeCore.csproj" />
-    <ProjectReference Include="..\NaturplayMath\NaturplayMath.csproj" />
   </ItemGroup>
 
   <ItemGroup>
