@@ -1,17 +1,15 @@
 ﻿<Window
-    x:Class="MATHUB.MainWindow"
+    x:Class="MATHUB_WIN.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MATHUB"
+    xmlns:local="using:MATHUB_WIN"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Closed="Window_Closed">
+    mc:Ignorable="d">
 
-    <NavigationView IsBackEnabled="False" ItemInvoked="NavigationView_ItemInvoked" Width="auto" IsPaneOpen="False">
+    <NavigationView IsBackEnabled="False" ItemInvoked="NavigationView_ItemInvoked"  Width="auto" IsPaneOpen="False">
         <NavigationView.MenuItems>
             <NavigationViewItem Icon="Calculator" Content="计算" Tag="计算"/>
-            <NavigationViewItem Icon="Map"  Content="绘图" Tag="绘图"/>
         </NavigationView.MenuItems>
         <Frame x:Name="ContentFrame"/>
     </NavigationView>

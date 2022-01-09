@@ -16,7 +16,7 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace MATHUB
+namespace MATHUB_WIN
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -26,7 +26,6 @@ namespace MATHUB
         public MainWindow()
         {
             this.InitializeComponent();
-            _ = CalculatorRealizeHelper.getCurrentCalculatorRealize();
         }
 
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
@@ -68,10 +67,6 @@ namespace MATHUB
             {
                 ContentFrame.Navigate(_page, null, transitionInfo);
             }
-        }
-
-        private void Window_Closed(object sender, WindowEventArgs args)
-        {
         }
     }
 }

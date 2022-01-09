@@ -1,9 +1,19 @@
 ﻿using NaturplayMath.Algebra.Scalar.NumberString;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
-namespace ExpressionComputeCore
+namespace MATHUB
 {
-    public class Compute
+    public class CalculatorRealization
     {
+        public static string Compute(string exp)
+        {
+            return compute(exp).ToString();
+        }
+
         public static NumStr compute(string input)
         {
             /*表达式的标准化与拆分*/

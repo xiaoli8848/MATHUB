@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MATHUB_WIN (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MATHUB_WIN (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "MATHUB": {
-      "commandName": "MsixPackage"
-    }
-  }
-}
