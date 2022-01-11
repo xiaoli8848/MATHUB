@@ -59,6 +59,43 @@ namespace MATHUB_WIN
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
+            inputBox.Text.Remove(inputBox.Text.Length - 1);
+        }
+
+        private void OperatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            var content = (sender as Button).Content.ToString();
+            inputBox.Focus(FocusState.Keyboard);
+            inputBox.Text += content;
+            if (content.Length >= 3)
+            {
+                inputBox.Text += "()";
+                inputBox.Select(inputBox.Text.Length - 1, 0);
+            }
+            else
+            {
+                if(content != "!" && content != "e" && content != "i" && content != "pi")
+                {
+                    inputBox.Select(inputBox.Text.Length, 0);
+                }
+            }
+        }
+
+        private void NumButton_Click(object sender, RoutedEventArgs e)
+        {
+            var content = (sender as Button).Content.ToString();
+            inputBox.Focus(FocusState.Keyboard);
+            inputBox.Text += content;
+            inputBox.Select(inputBox.Text.Length, 0);
+        }
+
+        private void leftButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void rightButton_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

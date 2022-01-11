@@ -16,3 +16,5 @@
 /.vs
 /MATHUB_WIN/bin/x64/Debug/net6.0-windows10.0.19041.0/win10-x64
 /MATHUB_WIN/obj
+/MATHUB_WIN/bin
+/MATHUB_WIN/bin

@@ -13,11 +13,18 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Grid Width="auto" Grid.Row="0">
-            <TextBlock x:Name="resultText"/>
+        <Grid Width="1000" Height="200" Grid.Row="0" Background="{StaticResource SystemControlAcrylicElementBrush}" CornerRadius="20">
+            <TextBlock x:Name="resultText" Margin="10" FontSize="40"/>
         </Grid>
 
         <Grid Width="1000" Height="auto" Grid.Row="1" x:Name="inputGrid" CornerRadius="12">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="FontSize" Value="17"/>
+                    <Setter Property="FontFamily" Value="Arial"/>
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -26,8 +33,8 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBox Width="auto" Height="55" Grid.Column="0" Grid.ColumnSpan="3"  Margin="20,10,20,15" x:Name="inputBox" FontSize="28" Grid.Row="0"/>
-            <Grid Width="200" Height="auto" Grid.Row="1" Grid.Column="0">
+            <TextBox Width="auto" Height="55" Grid.Column="0" Grid.ColumnSpan="3"  Margin="20,10,20,15" x:Name="inputBox" FontSize="28" Grid.Row="0" SelectionStart="0"/>
+            <Grid Width="auto" Height="auto" Grid.Row="1" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -37,15 +44,20 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Grid.Row="0" Content="!" Width="80" Height="40"/>
-                <Button Grid.Column="0" Grid.Row="1" Content="√￣" Width="80" Height="40"/>
-                <Button Grid.Column="0" Grid.Row="2" Content="Π" Width="80" Height="40"/>
-                <Button Grid.Column="0" Grid.Row="3" Content="e" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="0" Content="sin" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="1" Content="cos" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="2" Content="tan" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="3" Content="cot" Width="80" Height="40"/>
+                <Button Grid.Column="0" Grid.Row="0" Content="!" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="0" Grid.Row="1" Content="i" IsEnabled="False" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="0" Grid.Row="2" Content="pi" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="0" Grid.Row="3" Content="e" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="0" Content="sin" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="1" Content="cos" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="2" Content="tan" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="3" Content="cot" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="0" Content="log" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="1" Content="sec" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="2" Content="floor" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="3" Content="abs" Width="80" Height="40" Click="OperatorButton_Click"/>
             </Grid>
             <Grid Width="450" Height="auto" Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -61,26 +73,26 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Grid.Row="3" Content="←" Width="80" Height="40" Background="SteelBlue"/>
+                <Button Grid.Column="0" Grid.Row="3" Content="←" Width="80" Height="40" Style="{ThemeResource ButtonRevealStyle}" Background="{ThemeResource SystemAccentColor}" Click="rightButton_Click"/>
                 <Button Grid.Column="1" Grid.Row="3" Content="0" Width="80" Height="40"/>
-                <Button Grid.Column="2" Grid.Row="3" Content="→" Width="80" Height="40" Background="SteelBlue"/>
-                <Button Grid.Column="0" Grid.Row="0" Content="1" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="0" Content="2" Width="80" Height="40"/>
-                <Button Grid.Column="2" Grid.Row="0" Content="3" Width="80" Height="40"/>
-                <Button Grid.Column="0" Grid.Row="1" Content="4" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="1" Content="5" Width="80" Height="40"/>
-                <Button Grid.Column="2" Grid.Row="1" Content="6" Width="80" Height="40"/>
-                <Button Grid.Column="0" Grid.Row="2" Content="7" Width="80" Height="40"/>
-                <Button Grid.Column="1" Grid.Row="2" Content="8" Width="80" Height="40"/>
-                <Button Grid.Column="2" Grid.Row="2" Content="9" Width="80" Height="40"/>
-                <Button Grid.Column="3" Grid.Row="0" Content="+" Width="80" Height="40"/>
-                <Button Grid.Column="3" Grid.Row="1" Content="-" Width="80" Height="40"/>
-                <Button Grid.Column="3" Grid.Row="2" Content="×" Width="80" Height="40"/>
-                <Button Grid.Column="3" Grid.Row="3" Content="÷" Width="80" Height="40"/>
-                <Button Width="60" Height="80" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Margin="5" x:Name="clearButton" Click="clearButton_Click">
-                    <SymbolIcon Symbol="Delete"/>
+                <Button Grid.Column="2" Grid.Row="3" Content="→" Width="80" Height="40" Style="{ThemeResource ButtonRevealStyle}" Background="{ThemeResource SystemAccentColor}" Click="leftButton_Click"/>
+                <Button Grid.Column="0" Grid.Row="0" Content="1" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="0" Content="2" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="0" Content="3" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="0" Grid.Row="1" Content="4" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="1" Content="5" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="1" Content="6" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="0" Grid.Row="2" Content="7" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="1" Grid.Row="2" Content="8" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="2" Grid.Row="2" Content="9" Width="80" Height="40" Click="NumButton_Click"/>
+                <Button Grid.Column="3" Grid.Row="0" Content="+" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="3" Grid.Row="1" Content="-" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="3" Grid.Row="2" Content="×" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Grid.Column="3" Grid.Row="3" Content="÷" Width="80" Height="40" Click="OperatorButton_Click"/>
+                <Button Width="60" Height="80" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Margin="5" x:Name="clearButton" Click="clearButton_Click" Style="{ThemeResource ButtonRevealStyle}" Background="{ThemeResource SystemAccentColor}">
+                    <SymbolIcon Symbol="Back"/>
                 </Button>
-                <Button Width="60" Height="80" Grid.Row="2" Grid.RowSpan="2" Grid.Column="4" Margin="5" x:Name="actionButton" Click="actionButton_Click">
+                <Button Width="60" Height="80" Grid.Row="2" Grid.RowSpan="2" Grid.Column="4" Margin="5" x:Name="actionButton" Click="actionButton_Click" Style="{ThemeResource ButtonRevealStyle}" Background="{ThemeResource SystemAccentColor}">
                     <SymbolIcon Symbol="Send"/>
                 </Button>
             </Grid>
