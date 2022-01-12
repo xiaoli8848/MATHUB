@@ -23,15 +23,17 @@ namespace MATHUB_WIN
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            this.InitializeComponent();
-        }
-
-        private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
+        private static readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
           ("计算", typeof(CalculatorPage)),
         };
+
+        public MainWindow()
+        {
+            this.InitializeComponent();
+            navigationView.SelectedItem = navigationView.MenuItems[0];
+            ContentFrame.Navigate(typeof(CalculatorPage));
+        }
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {

@@ -27,9 +27,11 @@ namespace MATHUB_WIN
         public CalculatorPage()
         {
             this.InitializeComponent();
+            //TODO 显示提示
         }
         private void actionButton_Click(object sender, RoutedEventArgs e)
         {
+            inputBox.Text = inputBox.Text.Replace('÷', '/').Replace('×', '*').Replace('＋', '+').Replace('－', '-');
             try
             {
                 resultText.Text = CalculatorRealization.Compute(inputBox.Text);
@@ -42,7 +44,10 @@ namespace MATHUB_WIN
                 infoBar.Title = "计算遇到了错误";
                 infoBar.Message = ex.Message;
                 mainGrid.Children.Add(infoBar);
+                resultText.Text = "";
+                return;
             }
+            expressionText.Text = inputBox.Text + " =";
         }
 
         private void NavLinksList_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -59,7 +64,7 @@ namespace MATHUB_WIN
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            inputBox.Text.Remove(inputBox.Text.Length - 1);
+            inputBox.Text = "";
         }
 
         private void OperatorButton_Click(object sender, RoutedEventArgs e)
@@ -74,7 +79,7 @@ namespace MATHUB_WIN
             }
             else
             {
-                if(content != "!" && content != "e" && content != "i" && content != "pi")
+                if (content != "!" && content != "e" && content != "i" && content != "pi")
                 {
                     inputBox.Select(inputBox.Text.Length, 0);
                 }
