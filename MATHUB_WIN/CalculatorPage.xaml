@@ -5,8 +5,27 @@
     xmlns:local="using:MATHUB_WIN"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
+    mc:Ignorable="d"
+    Background="{StaticResource SystemControlChromeMediumAcrylicWindowMediumBrush}">
+    <Page.Resources>
+        <DataTemplate x:DataType="local:ComputeResultHistory" x:Key="ComputeResultHistoryTemplate">
+            <Grid PointerEntered="resultHistory_PointerEntered" PointerExited="resultHistory_PointerExited" Height="65">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <SymbolIcon Symbol="Calculator" Grid.RowSpan="2" Width ="32" Height="32" Margin="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{x:Bind expression}" x:Phase="1" Style="{ThemeResource BaseTextBlockStyle}" Margin="12,6,0,0" FontStyle="Italic" Foreground="Gray"/>
+                <TextBlock  Grid.Column="1" Grid.Row="1" Text="{x:Bind result}" x:Phase="2" Style="{ThemeResource BodyTextBlockStyle}" Margin="12,0,0,6" FontSize="15"/>
+                <AppBarButton Grid.Column="2" Grid.RowSpan="2" Visibility="Collapsed" IsTabStop="False" HorizontalAlignment="Right" Icon="Remove" Label="删除" Command="{x:Bind command}" CommandParameter="{x:Bind id}"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    
     <Grid>
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>
@@ -29,17 +48,17 @@
                     <SymbolIconSource Symbol="Keyboard"/>
                 </TeachingTip.IconSource>
             </TeachingTip>
-            
-            <Grid Width="1000" Height="200" Grid.Row="0" Background="{StaticResource SystemControlAcrylicElementBrush}" CornerRadius="20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Margin="8,0,0,0" Grid.Row="0" x:Name="expressionText" FontSize="20" FontStyle="Italic" Foreground="Gray"/>
-                <TextBlock Margin="8,0,0,0" Grid.Row="1" x:Name="resultText" FontSize="40"/>
-            </Grid>
 
-            <Grid Width="1000" Height="auto" Grid.Row="1" x:Name="inputGrid" CornerRadius="12">
+            <Pivot Width="1000" Height="600" Grid.Row="0" Background="{StaticResource SystemControlAcrylicElementBrush}" CornerRadius="20" Title="结果">
+                <!--<TextBlock Margin="8,0,0,0" Grid.Row="0" x:Name="expressionText" FontSize="20" FontStyle="Italic" Foreground="Gray"/>
+                <TextBlock Margin="8,0,0,0" Grid.Row="1" x:Name="resultText" FontSize="40"/>-->
+                <PivotItem Header="历史">
+                    <ListView CanDragItems="True" CanReorderItems="True" SelectionMode="Extended" ItemsSource="{x:Bind resultHistory}" ItemTemplate="{StaticResource ComputeResultHistoryTemplate}" x:Name="HistoryListView" DragItemsStarting="HistoryListView_DragItemsStarting">
+                    </ListView>
+                </PivotItem>
+            </Pivot>
+
+            <Grid Width="1000" Height="auto" Grid.Row="1" x:Name="inputGrid" CornerRadius="12" AllowDrop="True" DropCompleted="inputGrid_DropCompleted" Drop="inputGrid_Drop">
                 <Grid.Resources>
                     <Style TargetType="Button">
                         <Setter Property="FontSize" Value="17"/>

@@ -8,9 +8,11 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -21,6 +23,22 @@ using Windows.Foundation.Collections;
 
 namespace MATHUB_WIN
 {
+    public class ComputeResultHistory
+    {
+        private static int IDcreator = 0;
+        public ComputeResultHistory(string expression, string result, ICommand command)
+        {
+            this.expression = expression;
+            this.result = result;
+            this.command = command;
+            this.id = IDcreator++.ToString();
+        }
+
+        public string expression { get; }
+        public string result { get; }
+        public ICommand command { get; }
+        public string id { get; }
+    }
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
